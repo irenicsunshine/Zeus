@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+/* ─── Light theme tokens ─────────────────────────────────── */
+@theme {
+  --color-background: #F4F1EC;
+  --color-foreground: #1A1A1A;
+  --color-card:       #E5E1D9;
+  --color-accent:     #D8D4CA;
+  --color-border:     rgba(26, 26, 26, 0.12);
+  --font-serif: var(--font-playfair);
+}
+
+/* ─── Dark theme — override Tailwind tokens directly ────── */
+.dark {
+  --color-background: #131310;
+  --color-foreground: #E8E4DC;
+  --color-card:       #1C1C19;
+  --color-accent:     #252521;
+  --color-border:     rgba(232, 228, 220, 0.09);
+}
+
+/* Override the global border-color reset for dark mode */
+.dark *, .dark ::before, .dark ::after {
+  border-color: rgba(232, 228, 220, 0.09);
+}
+
+.dark ::selection {
+  background-color: rgba(232, 228, 220, 0.12);
+  color: #E8E4DC;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(232, 228, 220, 0.08);
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(232, 228, 220, 0.14);
+}
+
+/* ─────────────────────────────────────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+}
+
+/* --- THE EDITORIAL SERIF UTILITY --- */
+.font-serif-elegant {
+  font-family: var(--font-playfair), serif;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+}
+
+/* Forces all default borders to be faint and delicate */
+*, ::before, ::after {
+  border-color: rgba(26, 26, 26, 0.12);
+}
+
+/* --- EDITORIAL SELECTION HIGHLIGHT --- */
+::selection {
+  background-color: var(--color-accent);
+  color: #1A1A1A;
+}
+
+/* --- MINIMAL SCROLLBARS --- */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(26, 26, 26, 0.1);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(26, 26, 26, 0.2); }
+
+.custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(26, 26, 26, 0.05);
+  border-radius: 10px;
+}
+
+/* --- GENTLE ANIMATIONS --- */
+.animate-in {
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.fade-in                { animation-name: gentleFadeIn; }
+.slide-in-from-bottom-4 { animation-name: gentleSlideUp; }
+
+@keyframes gentleFadeIn {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes gentleSlideUp {
+  0%   { transform: translateY(10px); opacity: 0; }
+  100% { transform: translateY(0);    opacity: 1; }
+}
+
+.duration-500 { animation-duration: 500ms; }
