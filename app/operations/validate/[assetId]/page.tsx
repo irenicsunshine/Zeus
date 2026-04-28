@@ -32,6 +32,14 @@ function ValidatePage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (localStorage.getItem("zeus-dark-mode") !== "light") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
+
+  useEffect(() => {
     async function fetchData() {
       try {
         const opsRes = await fetch(`/api/get-operations?period=${encodeURIComponent(period)}`);
