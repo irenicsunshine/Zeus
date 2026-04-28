@@ -102,20 +102,20 @@ function ValidatePage() {
       </header>
 
       {/* Main Split View */}
-      <main className="flex-1 flex overflow-hidden h-[calc(100vh-89px)]">
-        
+      <main className="flex-1 flex overflow-hidden">
+
         {/* Left Pane: PDF Viewer */}
-        <div className="w-1/2 border-r border-border flex flex-col bg-accent/20 overflow-hidden">
+        <div className="w-1/2 border-r border-border flex flex-col bg-accent/20 min-h-0">
           <div className="px-6 py-4 border-b border-border bg-background/50 flex items-center gap-3 shrink-0">
             <div className="w-1.5 h-1.5 rounded-full bg-foreground/20"></div>
             <h2 className="text-[10px] font-bold uppercase tracking-widest text-foreground/40">Primary Document</h2>
           </div>
-          <div className="flex-1 p-8 overflow-hidden">
-            <div className="w-full h-full rounded-2xl overflow-hidden border border-border shadow-2xl bg-white/50">
+          <div className="flex-1 min-h-0 overflow-y-auto p-6 custom-scrollbar">
+            <div className="w-full h-full min-h-[75vh] rounded-2xl overflow-hidden border border-border shadow-xl">
               {msn ? (
-                <iframe 
+                <iframe
                   src={`/api/document?assetId=${assetId}&period=${encodeURIComponent(period)}#toolbar=0&view=FitH`}
-                  className="w-full h-full"
+                  className="w-full h-full min-h-[75vh]"
                   title="PDF Document"
                 />
               ) : (
@@ -129,13 +129,13 @@ function ValidatePage() {
         </div>
 
         {/* Right Pane: Extracted Details */}
-        <div className="w-1/2 flex flex-col bg-background overflow-hidden">
+        <div className="w-1/2 flex flex-col bg-background min-h-0">
           <div className="px-6 py-4 border-b border-border bg-background/50 flex items-center gap-3 shrink-0">
             <div className="w-1.5 h-1.5 rounded-full bg-foreground"></div>
             <h2 className="text-[10px] font-bold uppercase tracking-widest text-foreground">Extracted Telemetry</h2>
           </div>
-          
-          <div className="flex-1 overflow-y-auto p-8 space-y-6 custom-scrollbar bg-accent/5">
+
+          <div className="flex-1 min-h-0 overflow-y-auto p-8 space-y-6 custom-scrollbar bg-accent/5">
             {loading ? (
               <div className="flex flex-col items-center justify-center h-full text-foreground/20 gap-6">
                 <div className="w-12 h-12 border-2 border-foreground/5 border-t-foreground/20 rounded-full animate-spin"></div>
