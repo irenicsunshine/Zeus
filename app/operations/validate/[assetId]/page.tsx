@@ -66,7 +66,7 @@ function ValidatePage() {
   }, [assetId, period]);
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col font-sans transition-colors duration-500">
+    <div className="h-screen overflow-hidden bg-background text-foreground flex flex-col font-sans transition-colors duration-500">
       
       {/* Header */}
       <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border px-8 py-5 flex items-center justify-between shadow-sm">
