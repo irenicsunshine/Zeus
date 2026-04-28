@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+export const dynamic = "force-dynamic";
+
+import { useEffect, useState, Suspense } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
@@ -483,7 +485,7 @@ const TABS: { id: Tab; label: string }[] = [
   { id: "thread",   label: "Thread"   },
 ];
 
-export default function LogsPage() {
+function LogsPage() {
   const params       = useParams();
   const searchParams = useSearchParams();
   const assetId      = params.assetId as string;
@@ -703,5 +705,13 @@ export default function LogsPage() {
         )}
       </main>
     </div>
+  );
+}
+
+export default function LogsPageWrapper() {
+  return (
+    <Suspense fallback={null}>
+      <LogsPage />
+    </Suspense>
   );
 }

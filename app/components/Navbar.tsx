@@ -1,8 +1,21 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+
+// Extracted into its own component so useSearchParams can be wrapped in <Suspense>
+function PeriodSync({ setSelectedMonth }: { setSelectedMonth: (m: string) => void }) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    if (pathname === "/operations") {
+      const period = searchParams.get("period");
+      if (period) setSelectedMonth(fromPeriod(period));
+    }
+  }, [pathname, searchParams, setSelectedMonth]);
+  return null;
+}
 import {
   Plane,
   Calendar,
@@ -39,7 +52,6 @@ function fromPeriod(period: string) {
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const [selectedMonth, setSelectedMonth] = useState(() => {
     return MONTHS[0];
   });
@@ -101,13 +113,6 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
-  // Sync selector from URL when on operations page
-  useEffect(() => {
-    if (pathname === "/operations") {
-      const period = searchParams.get("period");
-      if (period) setSelectedMonth(fromPeriod(period));
-    }
-  }, [pathname, searchParams]);
 
   function handleRefresh() {
     if (refreshing) return;
@@ -120,6 +125,9 @@ export default function Navbar() {
 
   return (
     <div className="px-8 pt-8 pb-4 sticky top-0 z-50">
+      <Suspense fallback={null}>
+        <PeriodSync setSelectedMonth={setSelectedMonth} />
+      </Suspense>
       <nav className="bg-background/40 backdrop-blur-2xl border border-border text-foreground px-8 py-5 rounded-3xl flex items-center gap-8 shadow-sm">
         {/* Logo + Title */}
         <Link href="/admin" className="flex items-center gap-5 mr-4 group">

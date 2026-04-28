@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+export const dynamic = "force-dynamic";
+
+import { useEffect, useState, Suspense } from "react";
 import { ArrowLeft, CheckCircle2, AlertCircle } from "lucide-react";
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
@@ -18,7 +20,7 @@ function toDecimalHours(value: string): string {
   return value;
 }
 
-export default function ValidatePage() {
+function ValidatePage() {
   const params = useParams();
   const searchParams = useSearchParams();
   
@@ -186,5 +188,13 @@ export default function ValidatePage() {
         </div>
       </main>
     </div>
+  );
+}
+
+export default function ValidatePageWrapper() {
+  return (
+    <Suspense fallback={null}>
+      <ValidatePage />
+    </Suspense>
   );
 }

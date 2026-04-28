@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Navbar from "../components/Navbar";
 import { Search, ChevronDown, ChevronRight, MessageSquare, Pencil, Loader2, InboxIcon, Upload, FileText, CheckCircle, Database, AlertCircle, Activity } from "lucide-react";
@@ -211,7 +211,7 @@ function AircraftRow({ aircraft, period }: { aircraft: Aircraft; period: string 
   );
 }
 
-export default function OperationsPage() {
+function OperationsPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const period = searchParams.get("period") || "March 2026";
@@ -522,5 +522,13 @@ export default function OperationsPage() {
         })}
       </main>
     </div>
+  );
+}
+
+export default function OperationsPageWrapper() {
+  return (
+    <Suspense fallback={null}>
+      <OperationsPage />
+    </Suspense>
   );
 }
