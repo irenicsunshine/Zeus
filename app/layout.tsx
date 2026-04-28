@@ -33,7 +33,7 @@ export default function RootLayout({
     >
       {/* Apply dark class before first paint to eliminate flash */}
       <head>
-        <script dangerouslySetInnerHTML={{ __html: `(function(){try{if(localStorage.getItem('zeus-dark-mode')==='dark')document.documentElement.classList.add('dark')}catch(e){}})()` }} />
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{if(localStorage.getItem('zeus-dark-mode')!=='light')document.documentElement.classList.add('dark')}catch(e){document.documentElement.classList.add('dark')}})()` }} />
       </head>
       <body className="relative min-h-full flex flex-col bg-[var(--background)] text-[var(--foreground)] overflow-x-hidden font-sans">
         

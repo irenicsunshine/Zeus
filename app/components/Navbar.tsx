@@ -65,6 +65,9 @@ export default function Navbar() {
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
+    if (!document.documentElement.classList.contains("dark")) {
+      document.documentElement.classList.add("dark");
+    }
     setDarkMode(document.documentElement.classList.contains("dark"));
   }, []);
 
