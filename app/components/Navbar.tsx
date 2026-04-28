@@ -31,6 +31,7 @@ import {
   Moon,
   Sun,
 } from "lucide-react";
+import { useTheme } from "./ThemeProvider";
 
 const MONTHS = [
   "March 2026 (Current)",
@@ -62,26 +63,7 @@ export default function Navbar() {
   const settingsRef = useRef<HTMLDivElement>(null);
   const [dateStr, setDateStr] = useState("");
   const [timeStr, setTimeStr] = useState("");
-  const [darkMode, setDarkMode] = useState(false);
-
-  useEffect(() => {
-    if (!document.documentElement.classList.contains("dark")) {
-      document.documentElement.classList.add("dark");
-    }
-    setDarkMode(document.documentElement.classList.contains("dark"));
-  }, []);
-
-  function toggleDark() {
-    const next = !darkMode;
-    setDarkMode(next);
-    if (next) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("zeus-dark-mode", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("zeus-dark-mode", "light");
-    }
-  }
+  const { darkMode, toggleDark } = useTheme();
 
   useEffect(() => {
     function tick() {
